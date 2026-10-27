@@ -1,793 +1,450 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Rishi Portfolio</title>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://unpkg.com/aos@2.3.4/dist/aos.css" rel="stylesheet">
-
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Rishi Asnani</title>
+<meta name="description" content="Rishi Asnani: video editor and web and graphic designer. Ads, fashion films, creator content, websites and brand graphics.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600&family=Instrument+Serif&display=swap" rel="stylesheet">
 <style>
-        * {
-            font-family: 'Poppins', sans-serif;
-        }
-        
-.hero-bg {
-  background: url('rishi1.png') no-repeat center center;
-  background-attachment: fixed;
-  background-size: cover; /* scales proportionally */
-  height: 100vh; /* full viewport height */
-  display: flex;
-  align-items: center;
-  justify-content: center;
+/* Layout: the old portfolio's order (portrait hero, about, experience, my work, contact), calm dark palette, one card per project */
+:root{
+  color-scheme:dark;
+  --black:#000; --ground:#0E0D0B; --raised:#171512; --step:#22201B; --ink:#EDE6D8; --soft:#A79F90; --rec:#DD334B;
+  --serif:"Instrument Serif",Georgia,serif; --sans:"Instrument Sans",system-ui,-apple-system,sans-serif;
+  --m:max(16px,min(3vw,40px)); --max:1240px; --ease:cubic-bezier(.2,.7,.1,1);
 }
+*{box-sizing:border-box;margin:0;padding:0}
+[hidden]{display:none!important}
+html{background:var(--ground);color:var(--ink);-webkit-text-size-adjust:100%}
+html.lenis,html.lenis body{height:auto}
+.lenis.lenis-smooth{scroll-behavior:auto!important}
+html.locked{overflow:hidden}
+body{font:400 17px/1.6 var(--sans);background:var(--ground);color:var(--ink);overflow-x:hidden}
+img,video{display:block;max-width:100%}
+a{color:inherit}
+button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
+:focus-visible{outline:3px solid var(--rec);outline-offset:3px}
+::selection{background:var(--rec);color:var(--black)}
+.num{font-variant-numeric:tabular-nums}
+.container{max-width:var(--max);margin-inline:auto;padding-inline:var(--m)}
+section{padding-block:clamp(88px,11vw,150px)}
+h2{font:400 clamp(48px,6.4vw,92px)/1 var(--serif);letter-spacing:-.02em;text-align:center;text-wrap:balance}
+.skip{position:absolute;left:-999px}.skip:focus{left:var(--m);top:8px;z-index:99;background:var(--ink);color:var(--black);padding:8px 12px}
+.btn{display:inline-flex;align-items:center;justify-content:center;padding:15px 26px;border-radius:999px;background:var(--rec);color:var(--black);font-weight:600;text-decoration:none;white-space:nowrap;transition:transform .25s var(--ease),background .25s}
+.btn:hover{transform:translateY(-2px);background:#E6526A}.btn:active{transform:translateY(1px)}
+.btn.ghost{background:var(--step);color:var(--ink)}.btn.ghost:hover{background:#2f2c26}
 
+/* nav */
+.nav{position:fixed;inset:0 0 auto 0;z-index:40;transition:background .4s,transform .5s var(--ease)}
+.nav.solid{background:rgba(14,13,11,.94)}
+.nav.hide{transform:translateY(-100%)}
+.nav .container{display:flex;align-items:center;gap:24px;padding-block:calc(18px + env(safe-area-inset-top,0px)) 18px}
+.mark{font:400 24px/1 var(--serif);text-decoration:none;margin-right:auto}
+.nav ul{display:flex;gap:30px;list-style:none}
+.nav ul a{text-decoration:none;font-size:13px;font-weight:500;letter-spacing:.14em;text-transform:uppercase;position:relative;padding-block:6px}
+.nav ul a::after{content:"";position:absolute;left:0;right:0;bottom:0;height:2px;background:var(--rec);transform:scaleX(0);transform-origin:left;transition:transform .35s var(--ease)}
+.nav ul a:hover::after,.nav ul a[aria-current=true]::after{transform:scaleX(1)}
+.menu-btn{display:none;font-size:13px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;padding:8px 0}
+.progress{position:fixed;left:0;right:0;top:0;height:3px;background:var(--rec);transform-origin:left;transform:scaleX(0);z-index:41;pointer-events:none}
 
-        .reveal {
-  opacity: 0;
-  transform: translateY(30px);
-  transition: all 0.6s ease-out;
+/* hero */
+.hero{position:relative;min-height:100svh;background:var(--black);overflow:hidden;display:flex;align-items:center;padding-block:120px 80px}
+.hero .bg{position:absolute;inset:0;background:url("media/img/hero.webp") no-repeat 22% center/cover}
+.hero .container{position:relative;width:100%;display:grid;grid-template-columns:1fr 1fr}
+.hero .copy{grid-column:2}
+.hello{font-size:16px;letter-spacing:.2em;text-transform:uppercase;color:var(--soft)}
+.hero h1{font:400 clamp(64px,9.6vw,150px)/.92 var(--serif);letter-spacing:-.03em;margin:18px 0 26px}
+.hero h1 .ln{display:block;overflow:hidden;padding-bottom:.06em}
+.hero h1 .ln>span{display:inline-block}
+.tag{font-size:clamp(19px,1.7vw,24px);max-width:28ch}
+.ctas{display:flex;flex-wrap:wrap;gap:12px;margin-top:36px}
+.scroll-cue{position:absolute;left:50%;bottom:28px;width:2px;height:56px;background:var(--step);overflow:hidden;transform:translateX(-50%)}
+.scroll-cue::after{content:"";position:absolute;inset:0;background:var(--rec);animation:cue 2.2s var(--ease) infinite}
+@keyframes cue{0%{transform:translateY(-100%)}60%,100%{transform:translateY(100%)}}
+
+/* about */
+#about{background:var(--raised)}
+.about-text{max-width:760px;margin:44px auto 0;font-size:clamp(18px,1.5vw,21px);text-align:center}
+.about-text p+p{margin-top:18px}
+.tools{display:flex;flex-wrap:wrap;justify-content:center;gap:8px;list-style:none;margin:44px auto 0;max-width:820px}
+.tools li{padding:8px 16px;border-radius:999px;background:var(--step);font-size:15px}
+
+/* experience */
+.tlw{position:relative;max-width:880px;margin:56px auto 0}
+.tlw::before,.tlw .fill{content:"";position:absolute;left:11px;top:8px;bottom:8px;width:2px;background:var(--step)}
+.tlw .fill{background:var(--rec);transform-origin:top;transform:scaleY(0)}
+.timeline{list-style:none}
+.timeline li{position:relative;padding-left:56px}
+.timeline li+li{margin-top:22px}
+.timeline .dot{position:absolute;left:4px;top:30px;width:16px;height:16px;border-radius:50%;background:var(--ground);box-shadow:inset 0 0 0 3px var(--rec);transition:background .3s}
+.timeline li.in .dot{background:var(--rec)}
+.timeline .card{background:var(--raised);border-radius:14px;padding:24px 28px;transition:transform .35s var(--ease),background .35s}
+.timeline .card:hover{transform:translateY(-4px);background:var(--step)}
+.timeline .top{display:flex;justify-content:space-between;align-items:baseline;gap:4px 16px;flex-wrap:wrap}
+.timeline h3{font:400 30px/1.1 var(--serif)}
+.timeline .when{color:var(--soft);font-size:15px}
+.timeline .org{color:var(--rec);font-weight:600;margin-top:4px}
+.timeline p:last-child{margin-top:10px;opacity:.86;max-width:68ch}
+
+/* my work: one card per project */
+#portfolio{background:var(--raised)}
+.filters{display:flex;flex-wrap:wrap;justify-content:center;gap:10px;margin-top:40px}
+.filters button{padding:11px 22px;border-radius:999px;background:var(--step);font-size:15px;font-weight:500;transition:background .25s,color .25s,transform .2s}
+.filters button:hover{background:#2f2c26}
+.filters button[aria-pressed=true]{background:var(--ink);color:var(--black)}
+.filters button:active{transform:scale(.97)}
+.grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:24px;margin-top:48px}
+.proj{display:block;width:100%;text-align:left;border-radius:16px;overflow:hidden;background:var(--step);transition:transform .45s var(--ease)}
+.proj:hover{transform:translateY(-6px)}
+.proj .media{position:relative;display:block;aspect-ratio:4/3;overflow:hidden;background:var(--black)}
+.proj .media img,.proj .media video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:top;opacity:0;transition:opacity .9s,transform 1.2s var(--ease)}
+.proj .media img.on{opacity:1}
+.proj:hover .media img.on{transform:scale(1.04)}
+.proj .media video{transition:opacity .5s}
+.proj.live .media video{opacity:1}
+.proj .badge{position:absolute;left:14px;top:14px;padding:5px 12px;border-radius:999px;background:rgba(0,0,0,.65);font-size:13px;font-weight:600}
+.proj .info{display:flex;width:100%;justify-content:space-between;align-items:flex-end;gap:12px;padding:18px 20px 20px}
+.proj h3{font:400 28px/1.1 var(--serif)}
+.proj .desc{color:var(--soft);font-size:15px;margin-top:4px}
+.proj .open{flex:none;width:40px;height:40px;border-radius:50%;background:var(--ground);display:grid;place-items:center;transition:background .25s,color .25s,transform .35s var(--ease)}
+.proj:hover .open{background:var(--rec);color:var(--black);transform:rotate(-45deg)}
+.proj .open svg{width:18px;height:18px;fill:currentColor}
+
+.ghead{grid-column:1/-1;display:flex;justify-content:space-between;align-items:baseline;gap:16px;padding:28px 0 10px;box-shadow:inset 0 -2px 0 var(--step)}
+.ghead:first-child{padding-top:0}
+.ghead h3{font:400 clamp(30px,3vw,44px)/1.1 var(--serif);display:flex;align-items:center;gap:14px}
+.ghead h3::before{content:"";flex:none;width:10px;height:10px;border-radius:50%;background:var(--rec)}
+.ghead p{color:var(--soft);font-size:15px;white-space:nowrap}
+.more .media{background:var(--rec)}
+.proj.more .media img{opacity:1;inset:auto;top:50%;left:50%;width:24%;height:auto;aspect-ratio:9/16;border-radius:10px;box-shadow:0 18px 40px rgba(0,0,0,.4);transform:translate(-50%,-50%) translateX(var(--x)) rotate(var(--r));transition:transform .7s var(--ease)}
+.proj.more:hover .media img{transform:translate(-50%,-50%) translateX(calc(var(--x) * 1.6)) rotate(calc(var(--r) * 1.6))}
+.proj.more:hover .media img:nth-child(2){transform:translate(-50%,-56%)}
+.more .count{position:absolute;right:16px;bottom:10px;font:400 clamp(44px,5vw,64px)/1 var(--serif);color:var(--black)}
+.more .open{background:var(--rec);color:var(--black)}
+
+.proj.wide{grid-column:1/-1}
+.proj.wide .badge{display:none}
+.proj.wide .media{aspect-ratio:auto;padding:28px;background:#1C1A16}
+.strip{position:relative;display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:14px}
+.proj.wide .strip img{position:relative;inset:auto;opacity:1;width:100%;height:auto;aspect-ratio:4/5;object-fit:cover;object-position:center;border-radius:10px;transition:transform .5s var(--ease)}
+.proj.wide .strip img:hover{transform:translateY(-8px)}
+.proj.wide:hover .media img.on{transform:none}
+
+/* contact */
+.contact-box{max-width:680px;margin:44px auto 0}
+.cform{display:grid;gap:16px}
+.cform label{display:grid;gap:8px;font-size:15px;font-weight:600}
+.cform input,.cform textarea{font:inherit;color:var(--ink);background:var(--raised);border:0;border-radius:12px;padding:16px 20px;box-shadow:inset 0 0 0 1.5px var(--step);transition:box-shadow .2s}
+.cform input:focus,.cform textarea:focus{outline:0;box-shadow:inset 0 0 0 2px var(--rec)}
+.cform textarea{min-height:170px;resize:vertical}
+.send{justify-self:center;margin-top:8px}
+.send:disabled{opacity:.6;cursor:wait}
+.status{min-height:1.6em;text-align:center;font-weight:600}
+.direct{text-align:center;margin-top:36px;color:var(--soft)}
+.direct b{color:var(--ink);font-weight:600;user-select:all}
+.copybtn{margin-left:8px;padding:6px 12px;border-radius:999px;background:var(--step);color:var(--ink);font-size:13px;font-weight:600}
+.socials{display:flex;justify-content:center;gap:14px;margin-top:22px}
+.socials a{width:52px;height:52px;border-radius:50%;background:var(--raised);display:grid;place-items:center;transition:background .25s,transform .25s var(--ease)}
+.socials a:hover{background:var(--rec);transform:translateY(-3px)}
+.socials a:hover svg{fill:var(--black)}
+.socials svg{width:22px;height:22px;fill:var(--ink);transition:fill .25s}
+footer{padding:36px 0;background:var(--black)}
+footer .container{display:flex;justify-content:space-between;align-items:center;gap:16px;color:var(--soft);font-size:15px}
+.totop{width:46px;height:46px;border-radius:50%;background:var(--step);display:grid;place-items:center;transition:background .25s,transform .25s var(--ease)}
+.totop:hover{background:var(--rec);transform:translateY(-3px)}
+.totop svg{width:20px;height:20px;fill:var(--ink)}
+
+/* dialogs */
+dialog{border:0;padding:0;max-width:none;max-height:none;width:100vw;height:100dvh;background:rgba(6,6,5,.97);color:var(--ink);overscroll-behavior:contain}
+dialog::backdrop{background:rgba(6,6,5,.9)}
+dialog[open]{display:grid;grid-template-rows:auto minmax(0,1fr) auto;animation:dlg .35s var(--ease)}
+@keyframes dlg{from{opacity:0;transform:scale(.985)}}
+.d-top,.d-bot{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:calc(14px + env(safe-area-inset-top,0px)) var(--m) 14px}
+.d-bot{padding:14px var(--m) calc(14px + env(safe-area-inset-bottom,0px))}
+.d-top h3{font:400 clamp(22px,2.2vw,32px)/1.1 var(--serif);min-width:0}
+.d-top small{display:block;font:400 14px/1.4 var(--sans);color:var(--soft);margin-top:2px}
+.d-stage{display:grid;place-items:center;min-height:0;padding:0 var(--m)}
+.d-stage video,.d-stage img{max-width:100%;max-height:100%;object-fit:contain;background:#000;border-radius:8px}
+.ctl{padding:10px 18px;border-radius:999px;background:var(--step);font-size:15px;text-decoration:none;white-space:nowrap;transition:background .2s}
+.ctl:hover{background:#2f2c26}
+.ctl.go{background:var(--rec);color:var(--black);font-weight:600}
+.d-mid{display:flex;align-items:center;gap:12px;color:var(--soft);font-size:15px}
+/* video category player: screen + list */
+.vbody{display:grid;grid-template-columns:minmax(0,1fr) 320px;gap:20px;min-height:0;padding:0 var(--m)}
+.vbody .d-stage{padding:0}
+.vlist{list-style:none;overflow-y:auto;display:grid;align-content:start;gap:6px;min-height:0;overscroll-behavior:contain;scrollbar-width:thin;scrollbar-color:var(--step) transparent}
+.vlist button{display:grid;grid-template-columns:96px minmax(0,1fr);align-items:center;gap:12px;width:100%;padding:6px;border-radius:10px;text-align:left;transition:background .2s}
+.vlist button:hover{background:var(--raised)}
+.vlist button[aria-current=true]{background:var(--step);box-shadow:inset 3px 0 0 var(--rec)}
+.vlist .th{width:96px;aspect-ratio:16/10;border-radius:6px;overflow:hidden;background:#000}
+.vlist .th img{width:100%;height:100%;object-fit:cover}
+.vlist .t{font-size:14px;line-height:1.3}
+.vlist .t small{display:block;color:var(--soft);font-size:13px;margin-top:2px}
+
+/* reveals: only things below the first screen start hidden */
+.js .pre{opacity:0;transform:translateY(28px)}
+.js .pre.in{opacity:1;transform:none;transition:opacity .9s var(--ease),transform .9s var(--ease);transition-delay:var(--d,0ms)}
+
+@media (max-width:1000px){.grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}}
+@media (max-width:860px){
+  .nav ul{display:none;position:absolute;top:100%;left:0;right:0;flex-direction:column;gap:0;background:rgba(14,13,11,.98);padding:8px var(--m) 20px}
+  .nav.open ul{display:flex}
+  .nav.open{background:rgba(14,13,11,.98)}
+  .nav ul a{display:block;padding:14px 0;font-size:15px}
+  .menu-btn{display:block}
+  .hero{display:block;padding:0 0 64px;min-height:auto}
+  .hero .bg{position:relative;height:60svh;background-position:28% center;mask-image:linear-gradient(#000 70%,transparent);-webkit-mask-image:linear-gradient(#000 70%,transparent)}
+  .hero .container{grid-template-columns:1fr;margin-top:-56px}
+  .hero .copy{grid-column:1}
+  .ctas .btn{flex:1}
+  .scroll-cue{display:none}
+  .timeline li{padding-left:44px}
+  .timeline .card{padding:20px}
+  .vbody{grid-template-columns:minmax(0,1fr);grid-template-rows:minmax(0,1fr) auto;gap:12px}
+  .vlist{grid-auto-flow:column;grid-auto-columns:140px;overflow-x:auto;overflow-y:hidden;gap:8px}
+  .vlist button{grid-template-columns:1fr;gap:6px;padding:4px}
+  .vlist .th{width:100%}
+  .vlist .t small{display:none}
 }
-
-.reveal.active {
-  opacity: 1;
-  transform: translateY(0);
+@media (max-width:600px){
+  .grid{grid-template-columns:minmax(0,1fr)}
+  .proj.wide .media{padding:14px}
+  .strip{grid-template-columns:repeat(6,64%);overflow-x:auto;scroll-snap-type:x mandatory;gap:10px;scrollbar-width:none}
+  .strip img{scroll-snap-align:start}
+  .filters{flex-wrap:nowrap;justify-content:flex-start;overflow-x:auto;scrollbar-width:none;margin-inline:calc(var(--m) * -1);padding-inline:var(--m)}
+  .filters::-webkit-scrollbar{display:none}
+  .filters button{flex:none}
+  .d-bot .ctl{padding:10px 14px}
 }
-
-
-        .nav-blur {
-            backdrop-filter: blur(10px);
-            background: rgba(0,0,0,0.8);
-        }
-        
-        .card-hover {
-            transition: all 0.3s ease;
-        }
-        
-        .card-hover:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 20px 40px rgba(0,255,136,0.1);
-        }
-        
-        .project-item {
-            transition: all 0.3s ease;
-            overflow: hidden;
-        }
-        
-        .project-item:hover {
-            transform: scale(1.05);
-        }
-        
-        .project-item:hover .project-overlay {
-            opacity: 1;
-        }
-        
-        .project-overlay {
-            opacity: 0;
-            transition: opacity 0.3s ease;
-        }
-        
-        .accent-green {
-            color: #00ff88;
-        }
-        
-        .bg-accent-green {
-            background-color: #00ff88;
-        }
-        
-        .border-accent-green {
-            border-color: #00ff88;
-        }
-        
-        .btn-accent {
-            background: linear-gradient(45deg, #4a5568, #2d3748);
-            transition: all 0.3s ease;
-        }
-        
-        .btn-accent:hover {
-            background: linear-gradient(45deg, #2d3748, #1a202c);
-            transform: translateY(-2px);
-            box-shadow: 0 10px 20px rgba(0,0,0,0.3);
-        }
-        
-        .filter-btn.active {
-            background-color: #4a5568;
-            color: #fff;
-        }
-        
-        .smooth-scroll {
-            scroll-behavior: smooth;
-        }
-        
-        .experience-card {
-            background: linear-gradient(135deg, #1a1a1a, #2a2a2a);
-            border: 1px solid #333;
-        }
-
-        .scroll-fade-up {
-  opacity: 0;
-  transform: translateY(50px);
-  transition: opacity 1s ease-out, transform 1s ease-out;
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important;scroll-behavior:auto!important}
+  .js .pre{opacity:1;transform:none}
 }
-
-.scroll-fade-up.visible {
-  opacity: 1;
-  transform: translateY(0);
-}
-
-.scroll-fade {
-  opacity: 0;
-  transform: translateY(40px);
-  transition: opacity 0.6s ease, transform 0.6s ease;
-  will-change: transform, opacity;
-}
-
-.scroll-fade.visible {
-  opacity: 1;
-  transform: translateY(0);
-}
-
-        
-    </style>
+</style>
 </head>
-<body class="bg-black text-white smooth-scroll">
-    
-    <!-- Navigation -->
-    <nav id="navbar" class="fixed top-0 w-full z-50 transition-all duration-300">
-        <div class="container mx-auto px-6 py-4">
-            <div class="flex justify-end">
-                <ul class="flex space-x-8 text-sm font-medium tracking-widest uppercase">
-                    <li><a href="#home" class="hover:text-accent-green transition-colors duration-300">Home</a></li>
-                    <li><a href="#about" class="hover:text-accent-green transition-colors duration-300">About</a></li>
-                    <li><a href="#experience" class="hover:text-accent-green transition-colors duration-300">Experience</a></li>
-                    <li><a href="#portfolio" class="hover:text-accent-green transition-colors duration-300">Portfolio</a></li>
-                    <li><a href="#contact" class="hover:text-accent-green transition-colors duration-300">Contact</a></li>
-                </ul>
-            </div>
-        </div>
-    </nav>
+<body>
+<a class="skip" href="#portfolio">Skip to the work</a>
+<div class="progress" aria-hidden="true"></div>
+<header class="nav">
+  <div class="container">
+    <a class="mark" href="#home">Rishi Asnani</a>
+    <button class="menu-btn" aria-expanded="false" aria-controls="navlinks">Menu</button>
+    <nav aria-label="Sections"><ul id="navlinks">
+      <li><a href="#home">Home</a></li><li><a href="#about">About</a></li><li><a href="#experience">Experience</a></li><li><a href="#portfolio">Portfolio</a></li><li><a href="#contact">Contact</a></li>
+    </ul></nav>
+  </div>
+</header>
 
-    <!-- Hero Section -->
-<section id="home" class="hero-bg min-h-screen flex">
-  <div class="w-1/2"></div>
-  <div class="w-1/2 flex flex-col justify-start mt-16 pl-4" data-aos="fade-up">
-    <p class="text-gray-400 text-lg font-light uppercase tracking-widest mb-4" data-aos="fade-up" data-aos-delay="100">Hello, I'm Rishi Asnani</p>
-    <h1 class="text-6xl md:text-8xl font-bold mb-6" data-aos="fade-up" data-aos-delay="300">Creative Developer</h1>
-    <p class="text-gray-300 text-xl" data-aos="fade-up" data-aos-delay="500">Turning ideas into visuals, stories, and digital experiences</p>
+<main>
+<section class="hero" id="home" aria-labelledby="hero-h">
+  <div class="bg" role="img" aria-label="Portrait of Rishi Asnani"></div>
+  <div class="container">
+    <div class="copy">
+      <p class="hello">Hello, I'm Rishi Asnani</p>
+      <h1 id="hero-h"><span class="ln"><span>Creative</span></span><span class="ln"><span>Developer</span></span></h1>
+      <p class="tag">Turning ideas into visuals, stories, and digital experiences</p>
+      <div class="ctas"><a class="btn" href="#portfolio">See my work</a><a class="btn ghost" href="#contact">Contact me</a></div>
+    </div>
+  </div>
+  <span class="scroll-cue" aria-hidden="true"></span>
+</section>
+
+<section id="about" aria-labelledby="about-h">
+  <div class="container">
+    <h2 id="about-h" data-r>About Me</h2>
+    <div class="about-text" data-r style="--d:90ms">
+      <p>I’m a 4th-year Bachelor of Science in Information Technology student at the University of Baguio with a strong passion for blending tech with creativity. Over the past few years, I’ve gained hands-on experience as a Virtual Assistant, Social Media Manager, Video Editor, and Graphic Designer. I’ve worked with cafes and freelancers, handling everything from customer support and scheduling to designing posts and editing videos.</p>
+      <p>I'm currently open to internship, freelance, or entry-level roles in IT, creative tech, digital marketing, or content creation. Let’s connect!</p>
+    </div>
+    <ul class="tools" aria-label="Tools I use" data-r style="--d:180ms"><li>Premiere Pro</li><li>Final Cut Pro</li><li>CapCut</li><li>Photoshop</li><li>Illustrator</li><li>Canva</li><li>ChatGPT</li><li>Claude</li><li>Veo 3</li><li>Gemini</li><li>Midjourney</li><li>RunwayML</li><li>HeyGen</li><li>Higgsfield</li></ul>
   </div>
 </section>
 
-
-<!-- About Section -->
-<section id="about" class="py-20" style="background-color: #1a1a1a;">
-  <div class="container mx-auto px-6">
-    <div class="max-w-6xl mx-auto scroll-fade-up">
-            <h2 class="text-4xl font-bold mb-12 text-center">About Me</h2>
-                <div>
-                    <p class="text-gray-300 text-lg leading-relaxed mb-6">
-                        I’m a 4th-year Bachelor of Science in Information Technology student at the University of Baguio with a strong passion for blending tech with creativity. 
-                        Over the past few years, I’ve gained hands-on experience as a Virtual Assistant, Social Media Manager, Content Editor, and Graphic Designer. 
-                        I’ve worked with cafes, and freelancers—handling everything from customer support and scheduling to designing posts and editing videos.
-                    </p>
-                    <p class="text-gray-300 text-lg leading-relaxed">
-                        I'm currently open to internship, freelance, or entry-level roles in IT, creative tech, digital marketing, or content creation. Let’s connect!
-                    </p>
-                </div>
-        </div>
-    </div>
+<section id="experience" aria-labelledby="exp-h">
+  <div class="container">
+    <h2 id="exp-h" data-r>Experience</h2>
+    <div class="tlw"><span class="fill" aria-hidden="true"></span>
+    <ol class="timeline">
+      <li data-r><span class="dot"></span><div class="card"><div class="top"><h3>Video Editing</h3><span class="when num">2023 – Present</span></div><p class="org">Freelance</p><p>Edited promotional, lifestyle, real estate, gaming and social media videos using Final Cut Pro, CapCut and Adobe Premiere Pro. Collaborated with clients to deliver engaging video content tailored to various platforms. Managed all post-production processes from color grading to sound design.</p></div></li>
+      <li data-r><span class="dot"></span><div class="card"><div class="top"><h3>Graphic Designer</h3><span class="when num">2023 – Present</span></div><p class="org">Freelance</p><p>Designed branding assets, promotional materials, and social media graphics for clients across different industries. Proficient in Adobe Photoshop, Illustrator, and Canva, with a strong focus on visual consistency and audience appeal.</p></div></li>
+      <li data-r><span class="dot"></span><div class="card"><div class="top"><h3>Generative AI</h3><span class="when num">2025 – Present</span></div><p class="org">Content Creation</p><p>Created custom content using AI tools like ChatGPT, Claude, Veo 3, Gemini, Midjourney, RunwayML, HeyGen, and Higgsfield. Designed workflows to automate text and image generation for marketing and internal use. Explored emerging trends in generative AI to optimize creative output and improve scalability.</p></div></li>
+      <li data-r><span class="dot"></span><div class="card"><div class="top"><h3>Virtual Assistant</h3><span class="when num">2020 – 2022</span></div><p class="org">Dark Management</p><p>Provided remote administrative support including calendar management, email coordination, and client follow-ups. Assisted in project coordination and social media monitoring. Helped streamline daily operations and enhanced client communication systems.</p></div></li>
+      <li data-r><span class="dot"></span><div class="card"><div class="top"><h3>Social Media Manager</h3><span class="when num">2019 – 2021</span></div><p class="org">MilkFridge</p><p>Created, scheduled, and analyzed content across multiple social media platforms through data-driven campaigns and consistent branding. Collaborated with designers and copywriters to ensure cohesive messaging and visual identity.</p></div></li>
+    </ol></div>
+  </div>
 </section>
 
-
-    <!-- Experience Section -->
-    <section id="experience" class="py-20 bg-black">
-        <div class="container mx-auto px-6">
-            <h2 class="text-4xl font-bold mb-12 text-center">Experience</h2>
-            <div class="max-w-4xl mx-auto">
-                <div class="relative">
-                    <!-- Timeline line -->
-                    <div class="absolute left-8 top-0 bottom-0 w-0.5 bg-gray-700"></div>
-                    
-                    <!-- Experience items -->
-                    <div class="space-y-12">
-                        <div class="relative flex items-start scroll-fade-up">
-                            <div class="absolute left-6 w-4 h-4 bg-accent-green rounded-full border-4 border-black"></div>
-                            <div class="ml-20">
-                                <div class="flex flex-col md:flex-row md:items-center md:justify-between mb-2">
-                                    <h3 class="text-2xl font-semibold text-white">Social Media Manager</h3>
-                                    <span class="text-accent-green font-medium">2019 - 2021</span>
-                                </div>
-                                <p class="text-accent-green text-lg mb-3">MilkFridge</p>
-                                <p class="text-gray-300 leading-relaxed">Created, scheduled, and analyzed content across multiple social media platforms. Increased engagement by 80% through data-driven campaigns and consistent branding. Collaborated with designers and copywriters to ensure cohesive messaging and visual identity.
-
-</p>
-                            </div>
-                        </div>
-                        
-                       <div class="relative flex items-start scroll-fade-up">
-
-                            <div class="absolute left-6 w-4 h-4 bg-accent-green rounded-full border-4 border-black"></div>
-                            <div class="ml-20">
-                                <div class="flex flex-col md:flex-row md:items-center md:justify-between mb-2">
-                                    <h3 class="text-2xl font-semibold text-white">Virtual Assistant</h3>
-                                    <span class="text-accent-green font-medium">2020 - 2022</span>
-                                </div>
-                                <p class="text-accent-green text-lg mb-3">Dark Management</p>
-                                <p class="text-gray-300 leading-relaxed">Provided remote administrative support including calendar management, email coordination, and client follow-ups. Assisted in project coordination and social media monitoring. Helped streamline daily operations and enhanced client communication systems.</p>
-                            </div>
-                        </div>
-                        
-                        <div class="relative flex items-start scroll-fade-up">
-
-                            <div class="absolute left-6 w-4 h-4 bg-accent-green rounded-full border-4 border-black"></div>
-                            <div class="ml-20">
-                                <div class="flex flex-col md:flex-row md:items-center md:justify-between mb-2">
-                                    <h3 class="text-2xl font-semibold text-white">Freelance</h3>
-                                    <span class="text-accent-green font-medium">2023 - 2026</span>
-                                </div>
-                                <p class="text-accent-green text-lg mb-3">Video Editing</p>
-                                <p class="text-gray-300 leading-relaxed">Edited promotional, lifestyle, real estate, gaming and social media videos using Final Cut Pro, Capcut, Adobe Premiere Pro. Collaborated with clients to deliver engaging video content tailored to various platforms. Managed all post-production processes from color grading to sound design.</p>
-                            </div>
-                        </div>
-                        <div class="relative flex items-start scroll-fade-up">
-
-                            <div class="absolute left-6 w-4 h-4 bg-accent-green rounded-full border-4 border-black"></div>
-                            <div class="ml-20">
-                                <div class="flex flex-col md:flex-row md:items-center md:justify-between mb-2">
-                                    <h3 class="text-2xl font-semibold text-white">Freelance</h3>
-                                    <span class="text-accent-green font-medium">2023-2026</span>
-                                </div>
-                                <p class="text-accent-green text-lg mb-3">Graphic Designer</p>
-                                <p class="text-gray-300 leading-relaxed">Designed branding assets, promotional materials, and social media graphics for clients across different industries. Proficient in Adobe Photoshop, Illustrator, and Canva. Delivered over 50 design projects with a strong focus on visual consistency and audience appeal.</p>
-                            </div>
-                        </div>
-                       <div class="relative flex items-start scroll-fade-up">
-
-                            <div class="absolute left-6 w-4 h-4 bg-accent-green rounded-full border-4 border-black"></div>
-                            <div class="ml-20">
-                                <div class="flex flex-col md:flex-row md:items-center md:justify-between mb-2">
-                                    <h3 class="text-2xl font-semibold text-white">Gerenative AI</h3>
-                                    <span class="text-accent-green font-medium">2025-2026 </span>
-                                </div>
-                                <p class="text-accent-green text-lg mb-3">Content Creation</p>
-                                <p class="text-gray-300 leading-relaxed">Created custom content using AI tools like ChatGPT, Veo3, Gemini, Midjourney, and RunwayML. Designed workflows to automate text and image generation for marketing and internal use. Explored emerging trends in generative AI to optimize creative output and improve scalability.</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <br>
-    </section>
-    
-    <!-- Portfolio Section -->
-    <section id="portfolio" class="py-20" style="background-color: #1a1a1a;">
-        <div class="container mx-auto px-6">
-            <br>
-            <br>
-            <h2 class="text-4xl font-bold mb-12 text-center">My Work</h2>
-            
-            <!-- Filter Buttons -->
-            <div class="flex justify-center mb-12">
-                <div class="flex space-x-4">
-                    <button class="filter-btn px-6 py-2 rounded-full border border-gray-600 hover:border-accent-green transition-all duration-300 active" data-filter="all">All</button>
-                    <button class="filter-btn px-6 py-2 rounded-full border border-gray-600 hover:border-accent-green transition-all duration-300" data-filter="web">Web</button>
-                    <button class="filter-btn px-6 py-2 rounded-full border border-gray-600 hover:border-accent-green transition-all duration-300" data-filter="graphics">Graphics</button>
-                    <button class="filter-btn px-6 py-2 rounded-full border border-gray-600 hover:border-accent-green transition-all duration-300" data-filter="video">Video</button>
-                </div>
-            </div>
-            
-            <!-- Portfolio Grid -->
-            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
-                <div class="project-item bg-gray-800 rounded-lg overflow-hidden relative" data-category="web">
-    <!-- Slideshow Box -->
-    <div class="h-64 bg-gray-700 relative overflow-hidden">
-    
-        <!-- Slides -->
-        <div class="slide absolute inset-0 opacity-0 transition-opacity duration-700 ease-in-out">
-            <img src="a2.png" alt="Slide 2" class="w-full h-full object-cover">
-        </div>
-        <div class="slide absolute inset-0 opacity-0 transition-opacity duration-700 ease-in-out">
-            <img src="a3.png" alt="Slide 3" class="w-full h-full object-cover">
-        </div>
-                <div class="slide absolute inset-0 opacity-0 transition-opacity duration-700 ease-in-out">
-            <img src="a4.png" alt="Slide 3" class="w-full h-full object-cover">
-        </div>
-                <div class="slide absolute inset-0 opacity-0 transition-opacity duration-700 ease-in-out">
-            <img src="a5.png" alt="Slide 3" class="w-full h-full object-cover">
-        </div>
-
-        <!-- Dots -->
-        <div class="absolute bottom-2 left-1/2 transform -translate-x-1/2 flex space-x-2 z-10">
-            <span class="dot w-2.5 h-2.5 bg-white bg-opacity-50 rounded-full cursor-pointer transition-all"></span>
-            <span class="dot w-2.5 h-2.5 bg-white bg-opacity-50 rounded-full cursor-pointer transition-all"></span>
-            <span class="dot w-2.5 h-2.5 bg-white bg-opacity-50 rounded-full cursor-pointer transition-all"></span>
-            <span class="dot w-2.5 h-2.5 bg-white bg-opacity-50 rounded-full cursor-pointer transition-all"></span>
-        </div>
-    </div>
-
-    <!-- Overlay text -->
-    <div class="project-overlay absolute inset-0 bg-black bg-opacity-80 flex items-center justify-center cursor-pointer"
-         onclick="window.open('https://finals-qjvf.onrender.com/', '_blank')">
-        <div class="text-center">
-            <h3 class="text-xl font-semibold mb-2">AUTOCARE Detailing</h3>
-            <p class="text-gray-300">Professional car care in Baguio City</p>
-        </div>
-    </div>
-</div>
-
-<div class="project-item bg-gray-800 rounded-lg overflow-hidden relative" data-category="video">
-    <div class="h-64 bg-gradient-to-br from-red-600 to-orange-600 flex items-center justify-center">
-<div class="w-full h-full object-cover relative">
-<iframe class="absolute inset-0 w-full h-full"
-    src="https://www.youtube.com/embed/hzKa7NVJEgw?autoplay=1&mute=1&loop=1&playlist=hzKa7NVJEgw"
-    title="YouTube video"
-    frameborder="0"
-    allow="autoplay; encrypted-media"
-    allowfullscreen>
-</iframe>
-</div>
-
-    </div>
-    <div class="project-overlay absolute inset-0 bg-black bg-opacity-80 flex items-center justify-center hover:opacity-0 transition-opacity duration-500 cursor-pointer"
-         onclick="window.open('https://youtu.be/hzKa7NVJEgw', '_blank')">
-        <div class="text-center">
-            <h3 class="text-xl font-semibold mb-2">Real Estate</h3>
-            <p class="text-gray-300">Elevating property stories through visuals</p>
-        </div>
-    </div>
-</div>
-
-                
-
-                
-<div class="project-item bg-gray-800 rounded-lg overflow-hidden relative" data-category="web">
-    <!-- Slideshow Container -->
-    <div class="relative h-64 overflow-hidden">
-        <div class="slideshow-images h-full w-full relative">
-            <img src="b1.png" class="slide-image absolute inset-0 w-full h-full object-cover opacity-100 transition-opacity duration-700" alt="Slide 1">
-            <img src="b2.png" class="slide-image absolute inset-0 w-full h-full object-cover opacity-0 transition-opacity duration-700" alt="Slide 2">
-            <img src="b4.png" class="slide-image absolute inset-0 w-full h-full object-cover opacity-0 transition-opacity duration-700" alt="Slide 3">
-            <img src="b5.png" class="slide-image absolute inset-0 w-full h-full object-cover opacity-0 transition-opacity duration-700" alt="Slide 3">
-        </div>
-        <!-- Dot indicators -->
-        <div class="absolute bottom-2 left-1/2 transform -translate-x-1/2 flex space-x-2 z-10">
-            <span class="dot w-2 h-2 bg-white rounded-full opacity-50"></span>
-            <span class="dot w-2 h-2 bg-white rounded-full opacity-50"></span>
-            <span class="dot w-2 h-2 bg-white rounded-full opacity-50"></span>
-            <span class="dot w-2 h-2 bg-white rounded-full opacity-50"></span>
-        </div>
-    </div>
-
-    <!-- Overlay Text -->
-    <div class="project-overlay absolute inset-0 bg-black bg-opacity-80 flex items-center justify-center cursor-pointer"
-         onclick="window.open('https://equipment-reservation-system-lbkz.onrender.com/', '_blank')">
-        <div class="text-center">
-            <h3 class="text-xl font-semibold mb-2">Library Management System</h3>
-            <p class="text-gray-300">Borrow, Return, Reserve</p>
-        </div>
-    </div>
-</div>
-
-                
-<div class="project-item bg-gray-800 rounded-lg overflow-hidden relative" data-category="graphics">
-    <div class="h-64 bg-gradient-to-br from-purple-600 to-pink-600 flex items-center justify-center relative overflow-hidden">
-        <!-- Slideshow container -->
-        <div class="slideshow w-full h-full relative">
-            
-            <img src="FINAL.png" class="slide absolute w-full h-full object-cover opacity-100 transition-opacity duration-700" />
-            <img src="FINAL (2).png" class="slide absolute w-full h-full object-cover opacity-0 transition-opacity duration-700" />
-            <img src="8.png" class="slide absolute w-full h-full object-cover opacity-0 transition-opacity duration-700" />
-            <img src="FINAL (7).png" class="slide absolute w-full h-full object-cover opacity-0 transition-opacity duration-700" />
-            <!-- Dots -->
-            <div class="dots absolute bottom-2 left-1/2 transform -translate-x-1/2 flex space-x-2 z-10">
-                <span class="dot w-2 h-2 rounded-full bg-white opacity-80 cursor-pointer"></span>
-                <span class="dot w-2 h-2 rounded-full bg-white opacity-50 cursor-pointer"></span>
-                <span class="dot w-2 h-2 rounded-full bg-white opacity-50 cursor-pointer"></span>
-                <span class="dot w-2 h-2 rounded-full bg-white opacity-50 cursor-pointer"></span>
-            </div>
-        </div>
-    </div>
-
-    <div class="project-overlay absolute inset-0 bg-black bg-opacity-80 flex items-center justify-center cursor-pointer"
-         onclick="window.open('chickaboo-menu.html', '_blank')">
-        <div class="text-center">
-            <h3 class="text-xl font-semibold mb-2">Chickaboo Menu</h3>
-            <p class="text-gray-300">Bold flavors on every page</p>
-        </div>
-    </div>
-</div>
-
-                
-                <div class="project-item bg-gray-800 rounded-lg overflow-hidden relative" data-category="graphics">
-    <div class="h-64 bg-gradient-to-br from-green-600 to-teal-600 relative overflow-hidden">
-        <!-- Slideshow Container -->
-        <div class="slideshow w-full h-full relative">
-            <img src="1.png" class="slide absolute w-full h-full object-cover opacity-100 transition-opacity duration-700" />
-            <img src="2.png" class="slide absolute w-full h-full object-cover opacity-0 transition-opacity duration-700" />
-            <img src="3.png" class="slide absolute w-full h-full object-cover opacity-0 transition-opacity duration-700" />
-            <img src="4.png" class="slide absolute w-full h-full object-cover opacity-100 transition-opacity duration-700" />
-            <img src="5.png" class="slide absolute w-full h-full object-cover opacity-0 transition-opacity duration-700" />
-            <img src="6.png" class="slide absolute w-full h-full object-cover opacity-0 transition-opacity duration-700" />
-
-            <!-- Dots -->
-            <div class="dots absolute bottom-2 left-1/2 transform -translate-x-1/2 flex space-x-2 z-10">
-                <span class="dot w-2 h-2 rounded-full bg-white opacity-80 cursor-pointer"></span>
-                <span class="dot w-2 h-2 rounded-full bg-white opacity-50 cursor-pointer"></span>
-                <span class="dot w-2 h-2 rounded-full bg-white opacity-50 cursor-pointer"></span>
-                <span class="dot w-2 h-2 rounded-full bg-white opacity-80 cursor-pointer"></span>
-                <span class="dot w-2 h-2 rounded-full bg-white opacity-50 cursor-pointer"></span>
-                <span class="dot w-2 h-2 rounded-full bg-white opacity-50 cursor-pointer"></span>
-            </div>
-        </div>
-    </div>
-
-            <div class="project-overlay absolute inset-0 bg-black bg-opacity-80 flex items-center justify-center cursor-pointer"
-         onclick="window.open('poster.html', '_blank')">
-         <div class="text-center">
-            <h3 class="text-xl font-semibold mb-2">Poster Series</h3>
-            <p class="text-gray-300">Creative campaign</p>
-        </div>
-    
-    </div>
-</div>
-
-                
-<div class="project-item bg-gray-800 rounded-lg overflow-hidden relative" data-category="web">
-  <div class="h-64 bg-gradient-to-br from-indigo-600 to-purple-600 flex items-center justify-center overflow-hidden">
-    <img src="19.png" class="slide absolute w-full h-full object-cover opacity-0 transition-opacity duration-700" />
-    <img src="20.png" class="slide absolute w-full h-full object-cover opacity-0 transition-opacity duration-700" />
-    <img src="21.png" class="slide absolute w-full h-full object-cover opacity-0 transition-opacity duration-700" />
+<section id="portfolio" aria-labelledby="work-h">
+  <div class="container">
+    <h2 id="work-h" data-r>My Work</h2>
+    <div class="filters" role="group" aria-label="Filter work" data-r style="--d:90ms"></div>
+    <div class="grid" id="grid"></div>
   </div>
-              <div class="dots absolute bottom-2 left-1/2 transform -translate-x-1/2 flex space-x-2 z-10">
-                <span class="dot w-2 h-2 rounded-full bg-white opacity-80 cursor-pointer"></span>
-                <span class="dot w-2 h-2 rounded-full bg-white opacity-50 cursor-pointer"></span>
-                <span class="dot w-2 h-2 rounded-full bg-white opacity-50 cursor-pointer"></span>
-            </div>
+</section>
 
-  <!-- Corrected overlay -->
-  <div class="project-overlay absolute inset-0 bg-black bg-opacity-80 flex items-center justify-center cursor-pointer"
-       onclick="window.open('mobile.html', '_blank')">
-    <div class="text-center">
-      <h3 class="text-xl font-semibold mb-2">OTW Mobile App</h3>
-      <p class="text-gray-300">iOS & Android</p>
-    </div>
-  </div>
-</div>
-
-
-            </div>
-        </div>
-        <br>
-        <br>
-        <br>
-        <br>
-    </section>
-
-    <!-- Media Gallery Section -->
-<!--<section class="py-20 bg-black">
-    <div class="container mx-auto px-6">
-        <h2 class="text-4xl font-bold mb-12 text-center">Media Gallery</h2>
-        <div class="max-w-4xl mx-auto">
-            <div class="rounded-lg p-8 border" style="background-color: #1a1a1a; border-color: #2a2a2a;">
-                
-                Featured Video -->
-                <!--<div class="aspect-video rounded-lg overflow-hidden mb-6" style="background-color: #000;">
-                    <video class="w-full h-full object-cover" autoplay muted loop playsinline>
-                        <source src="Indiatrip.mov" type="video/mp4">
-                        Your browser does not support the video tag.
-                    </video>
-                </div>
-
-                 3 Video Grid -->
-                <!--<div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
-                    <div class="aspect-square rounded-lg overflow-hidden" style="background-color: #000;">
-                        <video class="w-full h-full object-cover" autoplay muted loop playsinline>
-                            <source src="RB.mp4" type="video/mp4">
-                            Your browser does not support the video tag.
-                        </video>
-                    </div>
-                    <div class="aspect-square rounded-lg overflow-hidden" style="background-color: #000;">
-                        <video class="w-full h-full object-cover" autoplay muted loop playsinline>
-                            <source src="lotus.mp4" type="video/mp4">
-                            Your browser does not support the video tag.
-                        </video>
-                    </div>
-                    <div class="aspect-square rounded-lg overflow-hidden" style="background-color: #000;">
-                        <video class="w-full h-full object-cover" autoplay muted loop playsinline>
-                            <source src="DTBK.mp4" type="video/mp4">
-                            Your browser does not support the video tag.
-                        </video>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</section> -->
-
-
-
-    <!-- Contact Section -->
-<section id="contact" class="py-20 bg-black">
-  <div class="container mx-auto px-6">
-    <h2 class="text-4xl font-bold mb-12 text-center">Contact Me</h2>
-    <div class="max-w-2xl mx-auto">
-      <form id="contact-form" class="space-y-6">
-        <div>
-          <input type="text" name="name" placeholder="Your Name" required
-            class="w-full px-6 py-4 border rounded-lg bg-[#1a1a1a] border-[#2a2a2a] text-white focus:outline-none focus:ring-2 focus:ring-gray-600 transition">
-        </div>
-        <div>
-          <input type="email" name="email" placeholder="Your Email" required
-            class="w-full px-6 py-4 border rounded-lg bg-[#1a1a1a] border-[#2a2a2a] text-white focus:outline-none focus:ring-2 focus:ring-gray-600 transition">
-        </div>
-        <div>
-          <textarea name="message" rows="6" placeholder="Your Message" required
-            class="w-full px-6 py-4 border rounded-lg bg-[#1a1a1a] border-[#2a2a2a] text-white resize-none focus:outline-none focus:ring-2 focus:ring-gray-600 transition"></textarea>
-        </div>
-        <div class="text-center">
-          <button type="submit"
-            class="bg-gray-700 hover:bg-gray-600 px-8 py-4 rounded-lg font-semibold text-white transition duration-300">
-            Send Message
-          </button>
-          <p id="responseMsg" class="mt-4 text-green-400 hidden">Thank you! Your message has been sent. ✅</p>
-        </div>
+<section id="contact" aria-labelledby="contact-h">
+  <div class="container">
+    <h2 id="contact-h" data-r>Contact Me</h2>
+    <div class="contact-box" data-r style="--d:90ms">
+      <form class="cform" id="cf" novalidate>
+        <label for="cf-name">Your name<input id="cf-name" name="name" autocomplete="name" required></label>
+        <label for="cf-email">Your email<input id="cf-email" name="email" type="email" autocomplete="email" required></label>
+        <label for="cf-msg">Your message<textarea id="cf-msg" name="message" required></textarea></label>
+        <button class="btn send" type="submit">Send message</button>
+        <p class="status" id="cfs" role="status" aria-live="polite"></p>
       </form>
+      <div class="socials">
+        <a href="https://www.linkedin.com/in/rishi-kumar-asnani-7450a0376/" target="_blank" rel="noopener" aria-label="LinkedIn"><svg viewBox="0 0 24 24"><path d="M4.98 3.5a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5zM3 9h4v12H3zM9 9h3.8v1.7h.05c.53-1 1.83-2.05 3.77-2.05C20.6 8.65 21 11.2 21 14.5V21h-4v-5.8c0-1.4-.03-3.2-1.95-3.2-1.95 0-2.25 1.52-2.25 3.1V21H9z"/></svg></a>
+        <a href="https://mail.google.com/mail/?view=cm&amp;fs=1&amp;to=rasnani670@gmail.com" target="_blank" rel="noopener" aria-label="Email in Gmail"><svg viewBox="0 0 24 24"><path d="M3 5h18a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1zm9 7.2L4.4 7H4v.6l8 5.4 8-5.4V7h-.4z"/></svg></a>
+        <a href="https://x.com/rshnn123" target="_blank" rel="noopener" aria-label="X (Twitter)"><svg viewBox="0 0 24 24"><path d="M17.75 3h3.07l-6.7 7.66L22 21h-6.17l-4.83-6.32L5.47 21H2.4l7.17-8.2L2 3h6.33l4.37 5.78zm-1.08 16.2h1.7L7.4 4.73H5.58z"/></svg></a>
+      </div>
     </div>
   </div>
 </section>
+</main>
 
-<!-- EmailJS Script -->
-<script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
+<footer>
+  <div class="container"><span>© 2026 Rishi Asnani. All rights reserved.</span><a class="totop" href="#home" aria-label="Back to top"><svg viewBox="0 0 24 24"><path d="M7.41 15.41 12 10.83l4.59 4.58L18 14l-6-6-6 6z"/></svg></a></div>
+</footer>
+
+<dialog id="player" aria-labelledby="pt">
+  <div class="d-top"><h3 id="pt"></h3><button class="ctl" data-close>Close</button></div>
+  <div class="vbody"><div class="d-stage"><video id="pv" controls playsinline preload="none"></video></div><ol class="vlist" id="vlist" aria-label="Videos in this category"></ol></div>
+  <div class="d-bot"><button class="ctl" data-prev>Previous</button><span class="d-mid num" id="pc"></span><button class="ctl" data-next>Next</button></div>
+</dialog>
+<dialog id="lightbox" aria-labelledby="lt">
+  <div class="d-top"><h3 id="lt"></h3><button class="ctl" data-close>Close</button></div>
+  <div class="d-stage"><img id="li" alt=""></div>
+  <div class="d-bot"><button class="ctl" data-prev>Previous</button><span class="d-mid"><span class="num" id="lc"></span><a class="ctl go" id="lgo" target="_blank" rel="noopener" hidden>Visit the site</a></span><button class="ctl" data-next>Next</button></div>
+</dialog>
+
+<script src="https://cdn.jsdelivr.net/npm/lenis@1.1.13/dist/lenis.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/emailjs-com@3.2.0/dist/email.min.js"></script>
 <script>
-  (function () {
-    emailjs.init("DT758BqkrBTgZ9KBo"); // your public API key
-  })();
+document.documentElement.classList.add('js');
+const VIDEOS=[{"id": "lumea", "title": "Lumea", "cat": "Product Commercials", "ar": 1.7778, "dur": 25.17}, {"id": "noir", "title": "Noir & Co", "cat": "Product Commercials", "ar": 1.7778, "dur": 21.34}, {"id": "maison", "title": "Maison & Co", "cat": "Product Commercials", "ar": 1.7778, "dur": 15.97}, {"id": "matchacha-ad5", "title": "Matchacha · Premium", "cat": "Product Commercials", "ar": 0.5625, "dur": 15.51}, {"id": "matchacha-ad2", "title": "Matchacha · Animated", "cat": "Product Commercials", "ar": 0.5625, "dur": 10.84}, {"id": "matchacha-ad1", "title": "Matchacha · UGC", "cat": "UGC & Social Ads", "ar": 0.5625, "dur": 21.78}, {"id": "matchacha-ad3", "title": "Matchacha · Podcast-style", "cat": "UGC & Social Ads", "ar": 0.5625, "dur": 17.21}, {"id": "matchacha-ad4", "title": "Matchacha · Street Interview", "cat": "UGC & Social Ads", "ar": 0.5625, "dur": 25.75}, {"id": "wrenhaven-a", "title": "Wrenhaven · UGC A", "cat": "UGC & Social Ads", "ar": 0.5625, "dur": 27.71}, {"id": "wrenhaven-b", "title": "Wrenhaven · UGC B", "cat": "UGC & Social Ads", "ar": 0.5625, "dur": 25.17}, {"id": "wrenhaven-c", "title": "Wrenhaven · UGC C", "cat": "UGC & Social Ads", "ar": 0.5625, "dur": 23.99}, {"id": "matchacha-showcase", "title": "Matchacha · Campaign Breakdown", "cat": "Campaign Breakdowns", "ar": 1.7778, "dur": 82.26}, {"id": "wrenhaven-showcase", "title": "Wrenhaven · Campaign Breakdown", "cat": "Campaign Breakdowns", "ar": 1.7778, "dur": 61.51}, {"id": "realestate", "title": "Modern Residence · Real Estate Film", "cat": "Real Estate", "ar": 1.7778, "dur": 41.98}, {"id": "dtbk", "title": "Don't Blame The Kids · Fashion Edit", "cat": "Fashion & Lifestyle", "ar": 0.5625, "dur": 47.42}, {"id": "richboyz", "title": "Richboyz · Fashion Edit", "cat": "Fashion & Lifestyle", "ar": 0.5625, "dur": 22.25}, {"id": "brasserie", "title": "Brasserie on 3 · Vlog for Chloe", "cat": "Creator & YouTube", "ar": 0.5625, "dur": 88.59}, {"id": "makati", "title": "Makati Date · Vlog for Chloe", "cat": "Creator & YouTube", "ar": 0.5625, "dur": 60.37}, {"id": "wolfgangs", "title": "Wolfgang's Premiere · Vlog for Chloe", "cat": "Creator & YouTube", "ar": 0.5625, "dur": 90.6}, {"id": "podcast", "title": "Podcast Clip · Captioned Short", "cat": "Creator & YouTube", "ar": 0.75, "dur": 41.12}, {"id": "sleep", "title": "Cozy Sleep Story · YouTube Long-form", "cat": "Creator & YouTube", "ar": 1.7778, "dur": 231.27}], REEL=[{"title": "Modern Residence · Real Estate Film", "t0": 0.0, "t1": 1.6}, {"title": "Lumea", "t0": 1.6, "t1": 3.2}, {"title": "Noir & Co", "t0": 3.2, "t1": 4.8}, {"title": "Maison & Co", "t0": 4.8, "t1": 6.4}, {"title": "Don't Blame The Kids · Fashion Edit", "t0": 6.4, "t1": 8.0}, {"title": "Wrenhaven · Campaign Breakdown", "t0": 8.0, "t1": 9.6}, {"title": "Cozy Sleep Story · YouTube Long-form", "t0": 9.6, "t1": 11.2}, {"title": "Matchacha · Campaign Breakdown", "t0": 11.2, "t1": 12.8}], REELV=[{"title": "Don't Blame The Kids · Fashion Edit", "t0": 0.0, "t1": 1.6}, {"title": "Matchacha · Animated", "t0": 1.6, "t1": 3.2}, {"title": "Richboyz · Fashion Edit", "t0": 3.2, "t1": 4.8}, {"title": "Matchacha · Street Interview", "t0": 4.8, "t1": 6.4}, {"title": "Wrenhaven · UGC B", "t0": 6.4, "t1": 8.0}, {"title": "Brasserie on 3 · Vlog for Chloe", "t0": 8.0, "t1": 9.6}, {"title": "Matchacha · Premium", "t0": 9.6, "t1": 11.2}, {"title": "Wolfgang's Premiere · Vlog for Chloe", "t0": 11.2, "t1": 12.8}];
+const VCATS=["Product Commercials","UGC & Social Ads","Campaign Breakdowns","Real Estate","Fashion & Lifestyle","Creator & YouTube"];
+const GAL={
+ autocare:{title:"AUTOCARE Detailing",desc:"Professional car care in Baguio City",kind:"Websites",badge:"Website",url:"https://finals-qjvf.onrender.com/",imgs:["autocare-1","autocare-2","autocare-3","autocare-4"]},
+ library:{title:"Library Management System",desc:"Borrow, Return, Reserve",kind:"Websites",badge:"Website",url:"https://equipment-reservation-system-lbkz.onrender.com/",imgs:["library-1","library-2","library-3","library-4"]},
+ otw:{title:"OTW Mobile App",desc:"iOS & Android",kind:"App & UI",badge:"App & UI",imgs:["otw-phone","otw-1","otw-2","otw-3"]},
+ menu:{title:"Chickaboo Menu",desc:"Bold flavors on every page",kind:"Graphics",badge:"Graphics",imgs:["menu-1","menu-2","menu-3","menu-4"]},
+ ads:{title:"Product Ad Series",desc:"Six ads for five beauty and wellness brands",kind:"Graphics",badge:"Graphics",imgs:["ad-wrenhaven","ad-lumea","ad-noir","ad-maison","ad-matchacha","ad-matchacha-photo"]},
+ poster:{title:"Poster Series",desc:"Creative campaign",kind:"Graphics",badge:"Graphics",imgs:["poster-1","poster-2","poster-3","poster-4","poster-5","poster-6","menu-1","menu-2","menu-3","menu-4"]}
+};
+const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
+const touch=matchMedia('(hover: none)').matches;
+const $=(s,r=document)=>r.querySelector(s), $$=(s,r=document)=>[...r.querySelectorAll(s)];
+const clamp=(v,a=0,b=1)=>Math.min(b,Math.max(a,v));
+const fmt=s=>{s=Math.round(s);return Math.floor(s/60)+':'+String(s%60).padStart(2,'0')};
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const arrow='<svg viewBox="0 0 24 24"><path d="M5 11h11.2l-4.6-4.6L13 5l7 7-7 7-1.4-1.4 4.6-4.6H5z"/></svg>';
+let lenis=null;
 
-  const form = document.getElementById("contact-form");
-  const responseMsg = document.getElementById("responseMsg");
+/* ---- my work ---- */
+const FEATURED=["matchacha-showcase","wrenhaven-showcase","realestate"];
+const byCat=VCATS.map(c=>({cat:c,vids:VIDEOS.filter(v=>v.cat===c)})).filter(g=>g.vids.length);
+const rest=VIDEOS.filter(v=>!FEATURED.includes(v.id));
+const restCats=[...new Set(rest.map(v=>v.cat))];
+const grid=$('#grid');
+const vcard=(v,g)=>`<button class="proj vid${FEATURED.includes(v.id)?' feat':''}" data-k="Video" data-v="${v.id}" aria-label="Play ${esc(v.title)}, ${fmt(v.dur)}" data-r>
+  <span class="media"><img class="on" src="media/v/${v.id}.webp" alt="" loading="lazy"><span class="badge num">${fmt(v.dur)}</span></span>
+  <span class="info"><span><h3>${esc(v.title)}</h3><p class="desc">${esc(v.cat)}</p></span><span class="open" aria-hidden="true">${arrow}</span></span></button>`;
+const thumbs=['dtbk','matchacha-ad1','brasserie'].filter(id=>rest.some(v=>v.id===id));
+grid.innerHTML=byCat.map(g=>`<div class="ghead" data-k="Video" data-only="video"><h3>${esc(g.cat)}</h3><p class="num">${g.vids.length} ${g.vids.length>1?'videos':'video'}</p></div>`+g.vids.map(v=>vcard(v,g)).join('')).join('')
+ +`<button class="proj more" data-k="more" aria-label="See all ${VIDEOS.length} videos" data-r>
+  <span class="media">${thumbs.map((id,k)=>`<img src="media/v/${id}.webp" alt="" loading="lazy" style="--x:${(k-1)*62}%;--r:${(k-1)*9}deg">`).join('')}<span class="count num">+${rest.length}</span></span>
+  <span class="info"><span><h3>${rest.length} more videos</h3><p class="desc">Product ads, UGC ads, fashion edits, vlogs and more</p></span><span class="open" aria-hidden="true">${arrow}</span></span></button>`
+ +['autocare','library','otw','ads','poster'].map(id=>{const g=GAL[id];return `<button class="proj" data-k="${esc(g.kind)}" data-g="${id}" aria-label="Open ${esc(g.title)}, ${g.imgs.length} images" data-r>
+  <span class="media">${false?`<span class="strip">${g.imgs.map((m,j)=>`<img src="media/img/${m}.webp" alt="" loading="lazy" data-j="${j}">`).join('')}</span>`:g.imgs.map((m,j)=>`<img class="${j?'':'on'}" src="media/img/${m}.webp" alt="" loading="lazy">`).join('')}<span class="badge">${esc(g.badge)}</span></span>
+  <span class="info"><span><h3>${esc(g.title)}</h3><p class="desc">${esc(g.desc)}</p></span><span class="open" aria-hidden="true">${arrow}</span></span></button>`}).join('');
+const cards=$$('.proj',grid),heads=$$('.ghead',grid);
 
-  form.addEventListener("submit", function (e) {
-    e.preventDefault();
+const FILTERS=[["All","all"],["Video","Video"],["Websites","Websites"],["App & UI","App & UI"],["Graphics","Graphics"]];
+const filters=$('.filters');
+filters.innerHTML=FILTERS.map(([l,v])=>`<button aria-pressed="${v==='all'}" data-f="${esc(v)}">${l}${v==='Video'?` <sup class="num">${VIDEOS.length}</sup>`:''}</button>`).join('');
+function show(f){
+ cards.forEach(c=>{const k=c.dataset.k;let on;
+  if(f==='all')on=k==='more'||(k==='Video'?c.classList.contains('feat'):true);
+  else on=k===f;
+  c.hidden=!on;if(on)c.classList.add('in')});
+ heads.forEach(h=>h.hidden=f!=='Video');
+ let d=0;cards.forEach(c=>{if(!c.hidden)c.style.setProperty('--d',(d++%3)*80+'ms')});
+ lenis&&lenis.resize()}
+function pick(f,scroll){$$('button',filters).forEach(x=>x.setAttribute('aria-pressed',x.dataset.f===f));
+ if(scroll){const y=$('#portfolio').getBoundingClientRect().top+scrollY+60;lenis?lenis.scrollTo(y,{duration:1}):scrollTo({top:y,behavior:reduce?'auto':'smooth'})}
+ if(reduce||!grid.animate)return show(f);
+ grid.animate([{opacity:1},{opacity:0}],{duration:160,easing:'ease-in'}).onfinish=()=>{show(f);grid.animate([{opacity:0,transform:'translateY(12px)'},{opacity:1,transform:'none'}],{duration:450,easing:'cubic-bezier(.2,.7,.1,1)'})}}
+show('all');
+filters.addEventListener('click',e=>{const b=e.target.closest('button');if(b)pick(b.dataset.f,false)});
 
-    emailjs.sendForm('service_90rgc9f', 'template_i3u7o7d', this)
-      .then(() => {
-        responseMsg.classList.remove("hidden");
-        form.reset();
-      }, (error) => {
-        alert("Something went wrong. Please try again.");
-        console.error(error);
-      });
-  });
+/* gallery cards slowly cross-fade through their images */
+if(!reduce){const vis=new Set();const sio=new IntersectionObserver(es=>es.forEach(e=>e.isIntersecting?vis.add(e.target):vis.delete(e.target)),{threshold:.3});cards.forEach(c=>c.dataset.g&&sio.observe(c));let tick=0;
+ setInterval(()=>{tick++;cards.forEach((c,k)=>{if(!vis.has(c)||(tick+k)%2)return;const sl=$$('.media img',c);const i=sl.findIndex(x=>x.classList.contains('on'));sl[i].classList.remove('on');sl[(i+1)%sl.length].classList.add('on')})},2200)}
+/* video cards: hover plays a muted preview */
+if(!touch&&!reduce)cards.forEach(c=>{if(!c.dataset.v)return;
+ c.addEventListener('pointerenter',()=>{let v=$('video',c);if(!v){v=document.createElement('video');v.muted=true;v.playsInline=true;v.loop=true;v.src=`media/v/${c.dataset.v}-p.mp4`;$('.media',c).insertBefore(v,$('.badge',c))}v.play().then(()=>c.classList.add('live')).catch(()=>{})});
+ c.addEventListener('pointerleave',()=>{const v=$('video',c);if(v)v.pause();c.classList.remove('live')})});
+grid.addEventListener('click',e=>{const c=e.target.closest('.proj');if(!c)return;
+ if(c.dataset.k==='more')return pick('Video',true);
+ if(c.dataset.v){const v=VIDEOS.find(x=>x.id===c.dataset.v),g=byCat.find(g=>g.cat===v.cat);return openPlayer({title:g.cat,vids:g.vids},g.vids.indexOf(v))}
+ const im=e.target.closest('.strip img');openLightbox(c.dataset.g,im?+im.dataset.j:0)});
+
+/* ---- dialogs ---- */
+const lock=on=>document.documentElement.classList.toggle('locked',on);
+const player=$('#player'),pv=$('#pv'),vlist=$('#vlist');let pp,pcur=0;
+function openPlayer(p,i){pp=p;pcur=i;vlist.innerHTML=p.vids.map((v,j)=>`<li><button data-j="${j}"><span class="th"><img src="media/v/${v.id}.webp" alt="" loading="lazy"></span><span class="t">${esc(v.title)}<small class="num">${fmt(v.dur)}</small></span></button></li>`).join('');
+ showVid();player.showModal();lock(true)}
+function showVid(){const v=pp.vids[pcur];$('#pt').innerHTML=`${esc(v.title)}<small>${esc(pp.title)}</small>`;$('#pc').textContent=`${pcur+1} of ${pp.vids.length}`;
+ pv.poster=`media/v/${v.id}.webp`;pv.src=`media/v/${v.id}.mp4`;pv.play().catch(()=>{});
+ $$('button',vlist).forEach(b=>b.setAttribute('aria-current',+b.dataset.j===pcur));const cb=$(`button[data-j="${pcur}"]`,vlist);cb&&cb.scrollIntoView({block:'nearest',inline:'nearest'});
+ const many=pp.vids.length>1;$('#player [data-prev]').hidden=!many;$('#player [data-next]').hidden=!many}
+vlist.addEventListener('click',e=>{const b=e.target.closest('button');if(b){pcur=+b.dataset.j;showVid()}});
+player.addEventListener('click',e=>{const n=pp.vids.length;if(e.target.closest('[data-close]'))player.close();else if(e.target.closest('[data-next]')){pcur=(pcur+1)%n;showVid()}else if(e.target.closest('[data-prev]')){pcur=(pcur-1+n)%n;showVid()}});
+player.addEventListener('close',()=>{pv.pause();pv.removeAttribute('src');pv.load();lock(false)});
+const lb=$('#lightbox');let lg,li=0;
+function openLightbox(g,i){lg=GAL[g];li=i;showImg();lb.showModal();lock(true)}
+function showImg(){$('#lt').textContent=lg.title;$('#li').src=`media/img/${lg.imgs[li]}.webp`;$('#li').alt=`${lg.title}, image ${li+1} of ${lg.imgs.length}`;$('#lc').textContent=`${li+1} of ${lg.imgs.length}`;const go=$('#lgo');go.hidden=!lg.url;if(lg.url)go.href=lg.url}
+lb.addEventListener('click',e=>{const n=lg.imgs.length;if(e.target.closest('[data-close]'))lb.close();else if(e.target.closest('[data-next]')){li=(li+1)%n;showImg()}else if(e.target.closest('[data-prev]')){li=(li-1+n)%n;showImg()}});
+lb.addEventListener('close',()=>lock(false));
+document.addEventListener('keydown',e=>{const d=lb.open?lb:player.open?player:null;if(!d||e.target.tagName==='VIDEO')return;if(e.key==='ArrowRight')$('[data-next]',d).click();if(e.key==='ArrowLeft')$('[data-prev]',d).click()});
+
+/* ---- contact ---- */
+const cf=$('#cf'),cfs=$('#cfs');
+try{window.emailjs&&emailjs.init("DT758BqkrBTgZ9KBo")}catch(e){}
+cf.addEventListener('submit',e=>{e.preventDefault();
+ const bad=[...cf.elements].find(x=>x.willValidate&&!x.checkValidity());
+ if(bad){cfs.textContent=bad.name==='email'&&bad.value?'Enter a valid email address.':`Add your ${bad.name}.`;bad.focus();return}
+ if(!window.emailjs){cfs.textContent='The form is unavailable right now. Email me at rasnani670@gmail.com.';return}
+ const btn=$('.send',cf);btn.disabled=true;cfs.textContent='Sending…';
+ emailjs.sendForm('service_90rgc9f','template_i3u7o7d',cf).then(()=>{cfs.textContent='Message sent. I’ll reply by email.';cf.reset()},()=>{cfs.textContent='Your message didn’t send. Email me at rasnani670@gmail.com instead.'}).finally(()=>btn.disabled=false)});
+
+
+/* ---- nav ---- */
+const nav=$('.nav'),mb=$('.menu-btn');
+mb.addEventListener('click',()=>{const o=nav.classList.toggle('open');mb.setAttribute('aria-expanded',o);mb.textContent=o?'Close':'Menu'});
+$$('#navlinks a').forEach(a=>a.addEventListener('click',()=>{nav.classList.remove('open');mb.setAttribute('aria-expanded',false);mb.textContent='Menu'}));
+
+/* ---- smooth scroll, reveals, hero entrance ---- */
+if(!reduce&&window.Lenis){lenis=new Lenis({lerp:.1,prevent:n=>n.nodeName==='DIALOG'||(n.closest&&!!n.closest('dialog'))});const raf=t=>{lenis.raf(t);requestAnimationFrame(raf)};requestAnimationFrame(raf);
+ $$('a[href^="#"]').forEach(a=>a.addEventListener('click',e=>{const t=a.getAttribute('href');if(t.length<2)return;e.preventDefault();lenis.scrollTo(t==='#home'?0:t,{offset:t==='#home'?0:-70})}))}
+const rio=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');rio.unobserve(e.target)}}),{rootMargin:'0px 0px -8% 0px'});
+$$('[data-r]').forEach(el=>{if(el.getBoundingClientRect().top>innerHeight*.9){el.classList.add('pre');rio.observe(el)}});
+if(!reduce){$$('.hero h1 .ln>span').forEach((s,i)=>s.animate([{transform:'translateY(110%)'},{transform:'none'}],{duration:1100,delay:250+i*140,easing:'cubic-bezier(.2,.7,.1,1)',fill:'backwards'}));
+ [['.hello',100],['.tag',650],['.ctas',800]].forEach(([s,d])=>$(s).animate([{opacity:0,transform:'translateY(18px)'},{opacity:1,transform:'none'}],{duration:900,delay:d,easing:'cubic-bezier(.2,.7,.1,1)',fill:'backwards'}));
+ $('.hero .bg').animate([{opacity:0,transform:'scale(1.06)'},{opacity:1,transform:'scale(1)'}],{duration:1800,easing:'cubic-bezier(.2,.7,.1,1)',fill:'backwards'})}
+
+const prog=$('.progress'),heroBg=$('.hero .bg'),tl=$('.tlw'),tf=$('.tlw .fill');let lastY=0;
+function onScroll(){const y=scrollY,max=document.documentElement.scrollHeight-innerHeight;prog.style.transform=`scaleX(${max>0?y/max:0})`;
+ nav.classList.toggle('solid',y>40);if(!nav.classList.contains('open'))nav.classList.toggle('hide',y>lastY&&y>500);lastY=y;
+ if(!reduce&&y<innerHeight&&innerWidth>860)heroBg.style.transform=`translateY(${y*.25}px)`;
+ const r=tl.getBoundingClientRect();tf.style.transform=`scaleY(${clamp((innerHeight*.6-r.top)/r.height)})`;
+ let on=null;['home','about','experience','portfolio','contact'].forEach(id=>{if(document.getElementById(id).getBoundingClientRect().top<innerHeight*.4)on=id});
+ $$('#navlinks a').forEach(a=>a.setAttribute('aria-current',a.getAttribute('href')==='#'+on))}
+addEventListener('scroll',onScroll,{passive:true});onScroll();
 </script>
-
-
-      <!-- Social Icons -->
-   <div class="flex justify-center space-x-6 mt-12 mb-20">
-  <a href="https://www.linkedin.com/in/rishi-kumar-asnani-7450a0376/" target="_blank"
-    class="w-12 h-12 rounded-full flex items-center justify-center transition-all duration-300"
-    style="background-color: #2a2a2a;" onmouseover="this.style.backgroundColor='#333333'"
-    onmouseout="this.style.backgroundColor='#2a2a2a'">
-    <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
-      <path
-        d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" />
-    </svg>
-  </a>
-
-  <a href="https://mail.google.com/mail/?view=cm&fs=1&to=rasnani670@gmail.com" target="_blank"
-    class="w-12 h-12 rounded-full flex items-center justify-center transition-all duration-300"
-    style="background-color: #2a2a2a;" onmouseover="this.style.backgroundColor='#333333'"
-    onmouseout="this.style.backgroundColor='#2a2a2a'">
-    <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
-      <path
-        d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z" />
-    </svg>
-  </a>
-
-  <a href="https://x.com/rshnn123" target="_blank"
-    class="w-12 h-12 rounded-full flex items-center justify-center transition-all duration-300"
-    style="background-color: #2a2a2a;" onmouseover="this.style.backgroundColor='#333333'"
-    onmouseout="this.style.backgroundColor='#2a2a2a'">
-    <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
-      <path
-        d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
-    </svg>
-  </a>
-</div>
-
-
-    <!-- Footer -->
-    <footer class="py-8 border-t" style="background-color: #1a1a1a; border-color: #2a2a2a;">
-        <div class="container mx-auto px-6">
-            <div class="flex justify-between items-center">
-                <p class="text-gray-500 text-sm">© 2025 Rishi Asnani. All rights reserved.</p>
-                <button id="back-to-top" class="w-10 h-10 rounded-full flex items-center justify-center transition-all duration-300" style="background-color: #2a2a2a;" onmouseover="this.style.backgroundColor='#333333'" onmouseout="this.style.backgroundColor='#2a2a2a'">
-                    <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
-                        <path d="M7.41 15.41L12 10.83l4.59 4.58L18 14l-6-6-6 6z"/>
-                    </svg>
-                </button>
-            </div>
-        </div>
-    </footer>
-
-    <script>
-        // Navbar scroll effect
-        window.addEventListener('scroll', function() {
-            const navbar = document.getElementById('navbar');
-            if (window.scrollY > 100) {
-                navbar.classList.add('nav-blur');
-            } else {
-                navbar.classList.remove('nav-blur');
-            }
-        });
-
-        // Smooth scrolling for navigation links
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                const target = document.querySelector(this.getAttribute('href'));
-                if (target) {
-                    target.scrollIntoView({
-                        behavior: 'smooth',
-                        block: 'start'
-                    });
-                }
-            });
-        });
-
-
-
-        // Portfolio filter
-        const filterButtons = document.querySelectorAll('.filter-btn');
-        const projectItems = document.querySelectorAll('.project-item');
-
-        filterButtons.forEach(button => {
-            button.addEventListener('click', () => {
-                const filter = button.getAttribute('data-filter');
-                
-                // Update active button
-                filterButtons.forEach(btn => btn.classList.remove('active'));
-                button.classList.add('active');
-                
-                // Filter projects
-                projectItems.forEach(item => {
-                    const category = item.getAttribute('data-category');
-                    if (filter === 'all' || category === filter) {
-                        item.style.display = 'block';
-                        setTimeout(() => {
-                            item.style.opacity = '1';
-                            item.style.transform = 'scale(1)';
-                        }, 100);
-                    } else {
-                        item.style.opacity = '0';
-                        item.style.transform = 'scale(0.8)';
-                        setTimeout(() => {
-                            item.style.display = 'none';
-                        }, 300);
-                    }
-                });
-            });
-        });
-
-        // Back to top button
-        document.getElementById('back-to-top').addEventListener('click', () => {
-            window.scrollTo({
-                top: 0,
-                behavior: 'smooth'
-            });
-        });
-
-        // Form submission
-
-    </script>
-<script>
-    document.querySelectorAll(".project-item").forEach(project => {
-        const slides = project.querySelectorAll(".slide");
-        const dots = project.querySelectorAll(".dot");
-        let index = 0;
-
-        function show(i) {
-            slides.forEach((slide, idx) => {
-                slide.style.opacity = idx === i ? "1" : "0";
-            });
-            dots.forEach((dot, idx) => {
-                dot.classList.toggle("bg-opacity-100", idx === i);
-                dot.classList.toggle("bg-opacity-50", idx !== i);
-            });
-            index = i;
-        }
-
-        if (slides.length > 0) {
-            show(0);
-            dots.forEach((dot, i) => {
-                dot.addEventListener("click", () => show(i));
-            });
-            setInterval(() => {
-                show((index + 1) % slides.length);
-            }, 3000);
-        }
-    });
-</script>
-<script>
-    document.querySelectorAll('.slideshow-images').forEach((slideshow, index) => {
-        const slides = slideshow.querySelectorAll('.slide-image');
-        const dots = slideshow.parentElement.querySelectorAll('.dot');
-        let current = 0;
-
-        function showSlide(i) {
-            slides.forEach((img, idx) => {
-                img.style.opacity = idx === i ? '1' : '0';
-                if (dots[idx]) dots[idx].style.opacity = idx === i ? '1' : '0.5';
-            });
-        }
-
-        setInterval(() => {
-            current = (current + 1) % slides.length;
-            showSlide(current);
-        }, 3000);
-
-        showSlide(current); // initial
-    });
-</script>
-<script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
-<script>
-  AOS.init({
-    duration: 1000, // animation duration
-    once: true      // animation only happens once
-  });
-</script>
-<script>
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        entry.target.classList.add('visible');
-      } else {
-        entry.target.classList.remove('visible'); // Trigger again on scroll up
-      }
-    });
-  }, {
-    threshold: 0.15
-  });
-
-  document.querySelectorAll('.scroll-fade-up').forEach(el => {
-    observer.observe(el);
-  });
-</script>
-<script>
-  const observerOptions = {
-    threshold: 0.2
-  };
-
-  const fadeObserver = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        entry.target.classList.add('visible');
-      } else {
-        entry.target.classList.remove('visible'); // triggers on scroll-up too
-      }
-    });
-  }, observerOptions);
-
-  document.querySelectorAll('.scroll-fade').forEach(el => {
-    fadeObserver.observe(el);
-  });
-</script>
-<script>
-    function revealOnScroll() {
-        const reveals = document.querySelectorAll(".reveal");
-        reveals.forEach((el) => {
-            const rect = el.getBoundingClientRect();
-            if (rect.top < window.innerHeight - 100) {
-                el.classList.add("active");
-            } else {
-                el.classList.remove("active");
-            }
-        });
-    }
-
-    window.addEventListener("scroll", revealOnScroll);
-    window.addEventListener("load", revealOnScroll);
-</script>
-
 </body>
 </html>
