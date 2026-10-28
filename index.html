@@ -509,9 +509,12 @@ filters.addEventListener('click',e=>{const b=e.target.closest('button');if(b)pic
 
 if(!reduce){const vis=new Set();const sio=new IntersectionObserver(es=>es.forEach(e=>e.isIntersecting?vis.add(e.target):vis.delete(e.target)),{threshold:.3});cards.forEach(c=>c.dataset.g&&sio.observe(c));let tick=0;
  setInterval(()=>{tick++;cards.forEach((c,k)=>{if(!vis.has(c)||(tick+k)%2)return;const sl=$$('.media img',c);const i=sl.findIndex(x=>x.classList.contains('on'));sl[i].classList.remove('on');sl[(i+1)%sl.length].classList.add('on')})},2200)}
-if(!touch&&!reduce)cards.forEach(c=>{if(!c.dataset.v)return;
- c.addEventListener('pointerenter',()=>{let v=$('video',c);if(!v){v=document.createElement('video');v.muted=true;v.playsInline=true;v.loop=true;v.src=`media/v/${c.dataset.v}-p.mp4`;$('.media',c).insertBefore(v,$('.badge',c))}v.play().then(()=>c.classList.add('live')).catch(()=>{})});
- c.addEventListener('pointerleave',()=>{const v=$('video',c);if(v)v.pause();c.classList.remove('live')})});
+/* previews: play on their own while a video card is on screen; with reduced motion, only on hover */
+const pvOn=c=>{let v=$('video',c);if(!v){v=document.createElement('video');v.muted=true;v.playsInline=true;v.loop=true;v.preload='auto';v.setAttribute('muted','');v.src=`media/v/${c.dataset.v}-p.mp4`;$('.media',c).insertBefore(v,$('.badge',c))}v.play().then(()=>c.classList.add('live')).catch(()=>{})};
+const pvOff=c=>{const v=$('video',c);if(v)v.pause();c.classList.remove('live')};
+const vcards=cards.filter(c=>c.dataset.v);
+if(!reduce){const pio=new IntersectionObserver(es=>es.forEach(e=>e.isIntersecting?pvOn(e.target):pvOff(e.target)),{threshold:.35});vcards.forEach(c=>pio.observe(c))}
+else if(!touch)vcards.forEach(c=>{c.addEventListener('pointerenter',()=>pvOn(c));c.addEventListener('pointerleave',()=>pvOff(c))});
 grid.addEventListener('click',e=>{const c=e.target.closest('.proj');if(!c)return;
  if(c.dataset.k==='more')return pick('Video',true);
  if(c.dataset.v){const v=VIDEOS.find(x=>x.id===c.dataset.v),g=byCat.find(g=>g.cat===v.cat);return openPlayer({title:g.cat,vids:g.vids},g.vids.indexOf(v))}
