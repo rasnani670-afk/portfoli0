@@ -124,7 +124,8 @@ h2.big{font-size:clamp(48px,7.6vw,108px)}
 .band::before{top:-2px}
 .band::after{bottom:-2px;transform:scale(-1,-1)}
 .namerow{position:absolute;left:0;top:50%;transform:translateY(-50%);white-space:nowrap;display:flex;z-index:1}
-.namerow span{display:inline-flex;align-items:center;gap:.25em;padding-right:.25em;font-size:clamp(90px,15vw,230px);color:#F3F3F1}
+.namerow span{display:inline-flex;align-items:center;gap:.25em;padding-right:.5em;font-size:clamp(90px,15vw,230px);color:#F3F3F1}
+.namerow i{font-style:normal;color:var(--red)}
 .namerow svg{width:.5em;height:.5em;fill:#F3F3F1}
 .namerow .row{display:flex;animation:slide 30s linear infinite}
 @keyframes slide{to{transform:translateX(-50%)}}
@@ -363,7 +364,6 @@ dialog[open]{display:grid;grid-template-rows:auto minmax(0,1fr) auto;animation:d
 <div class="band" aria-hidden="true" data-words="Rishi Asnani|Video Editor|Designer">
   <div class="namerow big"><div class="row"></div></div>
   <img class="cut" src="media/img/me-clear.webp" alt="">
-  <div class="orn"><svg viewBox="0 0 100 100"><use href="#o1"/></svg><svg viewBox="0 0 100 100"><use href="#o2"/></svg><svg viewBox="0 0 100 100"><use href="#o3"/></svg></div>
 </div>
 
 <section id="about" aria-labelledby="about-h">
@@ -471,7 +471,7 @@ let lenis=null;
 
 /* ---- name band ---- */
 $('.redstrip .row').innerHTML=(h=>h+h)(['Creative developer','Video editing','Websites','Graphic design'].map((w,i)=>`<span>${w}${orn(i%3+1)}</span>`).join(''));
-$$('.band').forEach(b=>{const h=b.dataset.words.split('|').map((w,i)=>`<span>${esc(w)}${orn(i%3+1)}</span>`).join('');$('.namerow .row',b).innerHTML=h+h});
+$$('.band').forEach(b=>{const h=b.dataset.words.split('|').map(w=>`<span>${esc(w)}</span>`).join('');$('.namerow .row',b).innerHTML=h+h});
 
 /* ---- my work ---- */
 const FEATURED=["matchacha-showcase","wrenhaven-showcase","realestate"];
