@@ -333,6 +333,7 @@ dialog[open]{display:grid;grid-template-rows:auto minmax(0,1fr) auto;animation:d
   .arrow-note path{stroke-dashoffset:0}.hero .note{opacity:1}
 }
 </style>
+<script>(function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y)})(window,document,"clarity","script","z5aj17yy6g");</script>
 </head>
 <body>
 <svg class="icons" aria-hidden="true"><defs>
@@ -468,6 +469,8 @@ const esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;',
 const arrow='<svg viewBox="0 0 24 24"><path d="M5 11h11.2l-4.6-4.6L13 5l7 7-7 7-1.4-1.4 4.6-4.6H5z"/></svg>';
 const orn=i=>`<svg viewBox="0 0 100 100"><use href="#o${i}"/></svg>`;
 let lenis=null;
+/* analytics (Microsoft Clarity): an event name, plus an optional tag to filter recordings by */
+const track=(ev,k,v)=>{try{clarity('event',ev);if(k)clarity('set',k,String(v))}catch(_){}};
 
 /* ---- name band ---- */
 $('.redstrip .row').innerHTML=(h=>h+h)(['Creative developer','Video editing','Websites','Graphic design'].map((w,i)=>`<span>${w}${orn(i%3+1)}</span>`).join(''));
@@ -505,7 +508,7 @@ function pick(f,scroll){$$('button',filters).forEach(x=>x.setAttribute('aria-pre
  grid.animate([{opacity:1},{opacity:0}],{duration:160,easing:'ease-in'}).onfinish=()=>{show(f);let k=0;$$('#grid > :not([hidden])').forEach(c=>{const r=parseFloat(getComputedStyle(c).getPropertyValue('--r'))||0;
   c.animate([{opacity:0,transform:`translate(${k%2?40:-40}px,-36px) rotate(${r+(k%2?10:-10)}deg)`},{opacity:1,transform:`rotate(${r}deg)`}],{duration:620,delay:k*70,easing:'cubic-bezier(.2,.9,.25,1.1)',fill:'backwards'});k++})}}
 show('all');
-filters.addEventListener('click',e=>{const b=e.target.closest('button');if(b)pick(b.dataset.f,false)});
+filters.addEventListener('click',e=>{const b=e.target.closest('button');if(b){pick(b.dataset.f,false);track('filter_'+b.dataset.f.replace(/\W+/g,'_').toLowerCase())}});
 
 if(!reduce){const vis=new Set();const sio=new IntersectionObserver(es=>es.forEach(e=>e.isIntersecting?vis.add(e.target):vis.delete(e.target)),{threshold:.3});cards.forEach(c=>c.dataset.g&&sio.observe(c));let tick=0;
  setInterval(()=>{tick++;cards.forEach((c,k)=>{if(!vis.has(c)||(tick+k)%2)return;const sl=$$('.media img',c);const i=sl.findIndex(x=>x.classList.contains('on'));sl[i].classList.remove('on');sl[(i+1)%sl.length].classList.add('on')})},2200)}
@@ -516,7 +519,7 @@ const vcards=cards.filter(c=>c.dataset.v);
 if(!reduce){const pio=new IntersectionObserver(es=>es.forEach(e=>e.isIntersecting?pvOn(e.target):pvOff(e.target)),{threshold:.35});vcards.forEach(c=>pio.observe(c))}
 else if(!touch)vcards.forEach(c=>{c.addEventListener('pointerenter',()=>pvOn(c));c.addEventListener('pointerleave',()=>pvOff(c))});
 grid.addEventListener('click',e=>{const c=e.target.closest('.proj');if(!c)return;
- if(c.dataset.k==='more')return pick('Video',true);
+ if(c.dataset.k==='more'){track('see_all_videos');return pick('Video',true)}
  if(c.dataset.v){const v=VIDEOS.find(x=>x.id===c.dataset.v),g=byCat.find(g=>g.cat===v.cat);return openPlayer({title:g.cat,vids:g.vids},g.vids.indexOf(v))}
  openLightbox(c.dataset.g,0)});
 
@@ -525,15 +528,21 @@ const lock=on=>document.documentElement.classList.toggle('locked',on);
 const player=$('#player'),pv=$('#pv'),vlist=$('#vlist');let pp,pcur=0;
 function openPlayer(p,i){pp=p;pcur=i;vlist.innerHTML=p.vids.map((v,j)=>`<li><button data-j="${j}"><span class="th"><img src="media/v/${v.id}.webp" alt="" loading="lazy"></span><span class="t">${esc(v.title)}<small class="num">${fmt(v.dur)}</small></span></button></li>`).join('');
  showVid();player.showModal();lock(true)}
-function showVid(){const v=pp.vids[pcur];$('#pt').innerHTML=`${esc(v.title)}<small>${esc(pp.title)}</small>`;$('#pc').textContent=`${pcur+1} of ${pp.vids.length}`;
+let wId=null,wSec=0,wLast=null;
+function flushWatch(){if(!wId||wSec<1){wId=null;return}const s=Math.round(wSec),b=s<5?'0-5s':s<15?'5-15s':s<30?'15-30s':s<60?'30-60s':'60s+';track('watched_'+wId.replace(/-/g,'_'),'watch_'+wId,b);wId=null;wSec=0}
+pv.addEventListener('timeupdate',()=>{const t=pv.currentTime;if(wLast!==null&&t>wLast&&t-wLast<1.5)wSec+=t-wLast;wLast=t});
+pv.addEventListener('seeking',()=>{wLast=null});
+pv.addEventListener('ended',()=>{track('finished_'+(wId||'').replace(/-/g,'_'))});
+function showVid(){flushWatch();const v=pp.vids[pcur];wId=v.id;wSec=0;wLast=null;track('play_'+v.id.replace(/-/g,'_'),'video',v.title);$('#pt').innerHTML=`${esc(v.title)}<small>${esc(pp.title)}</small>`;$('#pc').textContent=`${pcur+1} of ${pp.vids.length}`;
  pv.poster=`media/v/${v.id}.webp`;pv.src=`media/v/${v.id}.mp4`;pv.play().catch(()=>{});
  $$('button',vlist).forEach(b=>b.setAttribute('aria-current',+b.dataset.j===pcur));const cb=$(`button[data-j="${pcur}"]`,vlist);cb&&cb.scrollIntoView({block:'nearest',inline:'nearest'});
  const many=pp.vids.length>1;$('#player [data-prev]').hidden=!many;$('#player [data-next]').hidden=!many}
 vlist.addEventListener('click',e=>{const b=e.target.closest('button');if(b){pcur=+b.dataset.j;showVid()}});
 player.addEventListener('click',e=>{const n=pp.vids.length;if(e.target.closest('[data-close]'))player.close();else if(e.target.closest('[data-next]')){pcur=(pcur+1)%n;showVid()}else if(e.target.closest('[data-prev]')){pcur=(pcur-1+n)%n;showVid()}});
-player.addEventListener('close',()=>{pv.pause();pv.removeAttribute('src');pv.load();lock(false)});
+addEventListener('pagehide',flushWatch);
+player.addEventListener('close',()=>{flushWatch();pv.pause();pv.removeAttribute('src');pv.load();lock(false)});
 const lb=$('#lightbox');let lg,li=0;
-function openLightbox(g,i){lg=GAL[g];li=i;showImg();lb.showModal();lock(true)}
+function openLightbox(g,i){track('open_'+g,'project',GAL[g].title);lg=GAL[g];li=i;showImg();lb.showModal();lock(true)}
 function showImg(){$('#lt').textContent=lg.title;$('#li').src=`media/img/${lg.imgs[li]}.webp`;$('#li').alt=`${lg.title}, image ${li+1} of ${lg.imgs.length}`;$('#lc').textContent=`${li+1} of ${lg.imgs.length}`;const go=$('#lgo');go.hidden=!lg.url;if(lg.url)go.href=lg.url}
 lb.addEventListener('click',e=>{const n=lg.imgs.length;if(e.target.closest('[data-close]'))lb.close();else if(e.target.closest('[data-next]')){li=(li+1)%n;showImg()}else if(e.target.closest('[data-prev]')){li=(li-1+n)%n;showImg()}});
 lb.addEventListener('close',()=>lock(false));
@@ -547,7 +556,7 @@ cf.addEventListener('submit',e=>{e.preventDefault();
  if(bad){cfs.textContent=bad.name==='email'&&bad.value?'Enter a valid email address.':`Add your ${bad.name}.`;bad.focus();return}
  if(!window.emailjs){cfs.textContent='The form is unavailable right now. Email me at rasnani670@gmail.com.';return}
  const btn=$('.send',cf);btn.disabled=true;cfs.textContent='Sending…';
- emailjs.sendForm('service_90rgc9f','template_i3u7o7d',cf).then(()=>{cfs.textContent='Message sent. I’ll reply by email.';cf.reset()},()=>{cfs.textContent='Your message didn’t send. Email me at rasnani670@gmail.com instead.'}).finally(()=>btn.disabled=false)});
+ emailjs.sendForm('service_90rgc9f','template_i3u7o7d',cf).then(()=>{track('contact_sent');cfs.textContent='Message sent. I’ll reply by email.';cf.reset()},()=>{cfs.textContent='Your message didn’t send. Email me at rasnani670@gmail.com instead.'}).finally(()=>btn.disabled=false)});
 
 /* ---- nav ---- */
 const nav=$('.nav'),mb=$('.menu-btn');
