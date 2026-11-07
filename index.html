@@ -206,6 +206,8 @@ dialog[open]{display:grid;grid-template-rows:auto minmax(0,1fr) auto;animation:d
 .d-top small{display:block;font-weight:500;font-stretch:100%;text-transform:none;font-size:14px;color:#AAA;margin-top:2px}
 .d-stage{display:grid;place-items:center;min-height:0;padding:0 var(--m)}
 .d-stage video,.d-stage img{max-width:100%;max-height:100%;object-fit:contain;background:#000;border:6px solid #fff}
+#pv{max-height:calc(100dvh - 190px)}
+#li{max-height:calc(100dvh - 170px)}
 .ctl{padding:10px 18px;border-radius:999px;background:rgba(255,255,255,.12);font-size:13px;font-weight:800;text-transform:uppercase;text-decoration:none;white-space:nowrap;transition:background .2s}
 .ctl:hover{background:rgba(255,255,255,.22)}
 .ctl.go{background:var(--red)}
@@ -313,6 +315,7 @@ dialog[open]{display:grid;grid-template-rows:auto minmax(0,1fr) auto;animation:d
   .vlist button{grid-template-columns:1fr;gap:6px;padding:4px}
   .vlist .th{width:100%}
   .vlist .t small{display:none}
+  #pv{max-height:calc(100dvh - 340px)}
   .contact{grid-template-columns:minmax(0,1fr)}
   .band{padding-top:90px}
   .band .orn{display:none}
